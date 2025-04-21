@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Message</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: #f5f0fa;
+      overflow: hidden;
+      color: #4b007d;
+    }
+    .container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    .question-box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(75, 0, 125, 0.2);
+    }
+    input[type="text"] {
+      padding: 10px;
+      margin: 10px;
+      border: 2px solid #a066c7;
+      border-radius: 10px;
+      font-size: 16px;
+      width: 250px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #a066c7;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+    .envelope {
+      font-size: 100px;
+      cursor: pointer;
+      animation: float 2s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .paper {
+      margin-top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      height: auto;
+      box-shadow: 0 0 15px rgba(75, 0, 125, 0.3);
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      color: #c084fc;
+      font-size: 24px;
+      animation: floatHearts 6s infinite;
+      user-select: none;
+    }
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-hearts" id="floatingHearts"></div>
+  <audio id="bgMusic" src="Dito Sa 'kin by Earl Agustin (Lyrics).mp3" preload="auto"></audio>
+
+  <div class="container">
+    <div class="question-box" id="question1">
+      <h2>Name i've been calling you lately?</h2>
+      <input type="text" id="answer1" placeholder="Enter your answer here" />
+      <br />
+      <button onclick="checkAnswer1()">Submit</button>
+    </div>
+
+    <div class="question-box hidden" id="question2">
+      <h2>Date of the first message I sent you?</h2>
+      <input type="text" id="answer2" placeholder="Enter the date" />
+      <br />
+      <button onclick="checkAnswer2()">Submit</button>
+    </div>
+
+    <div id="envelopeContainer" class="hidden">
+      <div class="envelope" onclick="openEnvelope()">💌</div>
+    </div>
+
+    <div id="paperContainer" class="hidden">
+      <div class="paper" id="letter"></div>
+    </div>
+  </div>
+
+  <script>
+    function checkAnswer1() {
+      const answer = document.getElementById("answer1").value.trim().toLowerCase();
+      if (answer === "hannabee") {
+        document.getElementById("question1").classList.add("hidden");
+        document.getElementById("question2").classList.remove("hidden");
+      } else {
+        alert("Try again! Hint: it starts with H");
+      }
+    }
+
+    function checkAnswer2() {
+      const answer = document.getElementById("answer2").value.trim().toLowerCase();
+      if (answer === "feb 10") {
+        document.getElementById("question2").classList.add("hidden");
+        document.getElementById("envelopeContainer").classList.remove("hidden");
+      } else {
+        alert("Try again! Hint: month and date only");
+      }
+    }
+
+    function openEnvelope() {
+  document.getElementById("envelopeContainer").classList.add("hidden");
+  document.getElementById("paperContainer").classList.remove("hidden");
+  document.getElementById("bgMusic").play();
+  typeWriter();
+
+    }
+
+    const message = `Di kita minamadali… pero sana, one day, maisip mong worth it din akong piliin.
+
+Alam mo, wala naman talaga akong balak guluhin ‘yung peaceful mong routine.
+Wala rin akong script na pang-romcom or planong pasabugin ‘yung mundo mo.
+I’m just… here.
+Lowkey. Tahimik.
+Consistent na parang 11:11 wish na hindi mo alam kung kailan magkakatotoo—pero palaging andiyan.
+
+Hindi ako lalapit para magmadali, promise ‘yan.
+Hindi rin ako 'yung tipo na tipong “uy, tayo na agad”—nope, hindi ganon.
+Mas gusto ko yung get to know you slowly type.
+Yung chill lang pero hindi chamba.
+Effort na hindi OA. Care na hindi suffocating.
+
+At kung sakali man na may araw ka na tinamad kang maging okay, or gusto mo lang ng kausap habang kumakain ka ng fries sa gilid—alam mo na kung sino ‘yung puwede mong i-chat.
+Hindi ako superhero, pero solid akong listener. Kahit wala akong solution, marunong akong makinig.
+
+Hindi ko rin naman sinabing ako na agad ‘yung best option.
+Pero sa totoo lang… hindi kita gusto lang dahil maganda ka—though yes, grabe ka talaga minsan.
+Mas gusto kita kasi may something sa’yo na hindi ko ma-scroll away.
+May vibe ka na gusto kong intindihin, hindi lang tingnan.
+
+I won't promise magic or sparks every day, pero puwede tayong magkape kahit sabog ka sa trabaho, o makinig lang sa rant mo about how life’s unfair minsan.
+Real talk lang. No pressure. No pretensions.
+
+So ayun lang…
+Di ako loud, pero hindi rin ako nawawala.
+Di ako perfect, pero palagi akong totoo.
+
+Sana one of these random days, maramdaman mo rin ‘yon.
+Na kahit hindi ako ‘yung pinaka-extra sa feed mo, ako ‘yung quietly rooting for you sa background.
+Kasi kahit chill lang ako… seryoso rin ako sa’yo. In my own soft and steady way.`;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < message.length) {
+        document.getElementById("letter").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+
+    function createHearts() {
+      const heartsContainer = document.getElementById("floatingHearts");
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "💜";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 5 + "s";
+        heart.style.fontSize = Math.random() * 20 + 20 + "px";
+        heartsContainer.appendChild(heart);
+      }
+    }
+
+    createHearts();
+  </script>
+</body>
+</html>
+
+
+
