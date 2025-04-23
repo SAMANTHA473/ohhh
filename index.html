@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Message</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: #f5f0fa;
+      overflow: hidden;
+      color: #4b007d;
+    }
+    .container {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .question-box {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(75, 0, 125, 0.2);
+      max-width: 90%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input[type="text"] {
+      padding: 10px;
+      margin: 10px;
+      border: 2px solid #a066c7;
+      border-radius: 10px;
+      font-size: 16px;
+      width: 90%;
+      max-width: 250px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #a066c7;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .hidden {
+      display: none;
+    }
+    .envelope {
+      font-size: 100px;
+      cursor: pointer;
+      animation: float 2s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .paper {
+      margin-top: 20px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 600px;
+      height: auto;
+      box-shadow: 0 0 15px rgba(75, 0, 125, 0.3);
+      text-align: left;
+      font-size: 16px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      box-sizing: border-box;
+    }
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .heart {
+      position: absolute;
+      color: #c084fc;
+      font-size: 24px;
+      animation: floatHearts 6s infinite;
+      user-select: none;
+    }
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(100vh) scale(1);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+    .progress-bar {
+      width: 100%;
+      background: #e0c8f7;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 25px;
+      margin-top: 15px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: #a066c7;
+      color: white;
+      text-align: center;
+      line-height: 25px;
+      border-radius: 20px;
+      transition: width 0.3s ease;
+    }
+    .reveal-photo {
+      max-width: 90%;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(160, 102, 199, 0.4);
+      animation: photoPop 1.8s ease-out forwards;
+      opacity: 0;
+      transform: scale(0.8);
+      margin-bottom: 20px;
+    }
+    @keyframes photoPop {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(30px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.05) translateY(-10px);
+      }
+      100% {
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Responsive fix */
+    @media (max-width: 600px) {
+      .question-box {
+        padding: 20px;
+      }
+
+      .envelope {
+        font-size: 80px;
+      }
+
+      .paper {
+        font-size: 14px;
+        padding: 15px;
+      }
+
+      button {
+        font-size: 14px;
+      }
+
+      input[type="text"] {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-hearts" id="floatingHearts"></div>
+  <audio id="bgMusic" src="Dito Sa 'kin by Earl Agustin (Lyrics).mp3" preload="auto"></audio>
+
+  <div class="container">
+    <div class="question-box" id="question1">
+      <h2>Name i've been calling you lately?</h2>
+      <input type="text" id="answer1" placeholder="Enter your answer here" />
+      <br />
+      <button onclick="checkAnswer1()">Submit</button>
+    </div>
+
+    <div class="question-box hidden" id="question2">
+      <h2>Date of the first message I sent you?</h2>
+      <input type="text" id="answer2" placeholder="Enter the date" />
+      <br />
+      <button onclick="checkAnswer2()">Submit</button>
+    </div>
+
+    <div class="hidden" id="loadingScreen">
+      <div class="question-box">
+        <h2>Loading your surprise...</h2>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="photoReveal" class="hidden">
+      <img src="https://media-hosting.imagekit.io/7a84edd9860b4396/file_00000000549c5230b5884b565ace7d85_conversation_id=67f2b1e3-ee28-8004-8d03-24201a9e7186&message_id=978dd3d0-a59c-4375-b154-028a224859b5.PNG?Expires=1840022976&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=LF3O7nehUmElAwvYUDRbRRLIz3dx947aXLPSLo3w0ccRkEMjUKcgUeMsZI7DE3w~jGZG1yWdgv5nUyZ0RnhN7KoAm-sOXdCu6VukEsdtMtfgPXUrac8~4TsDmj6~5tjTagWOyBY2hqewT-KnMrKc2PPpWgxzqnPViUO3FTUlZmfd6U495n9lhWvG9gntptFaX-frrpDPSNg7ZEPYkaFMrnx2YzOllfKnv~5PAQ3c2mHyWaR1krM7Xis8tvWL7qvcsyJPnx2lwoRMufL-3X6-UcsagQel9RRShlqtBTJ3QPu3-mVYXsBh1znsdPW8cDX8m4zj~40tv3jqhpxSo0Sj-Q__" alt="Cute Photo" class="reveal-photo" />
+    </div>
+
+    <div id="envelopeContainer" class="hidden">
+      <div class="envelope" onclick="openEnvelope()">💌</div>
+    </div>
+
+    <div id="paperContainer" class="hidden">
+      <div class="paper" id="letter"></div>
+    </div>
+  </div>
+
+  <script>
+    function checkAnswer1() {
+      const answer = document.getElementById("answer1").value.trim().toLowerCase();
+      if (answer === "hannabee") {
+        document.getElementById("question1").classList.add("hidden");
+        document.getElementById("question2").classList.remove("hidden");
+      } else {
+        alert("Try again! Hint: it starts with H");
+      }
+    }
+
+    function checkAnswer2() {
+      const answer = document.getElementById("answer2").value.trim().toLowerCase();
+      if (answer === "feb 10") {
+        document.getElementById("question2").classList.add("hidden");
+        document.getElementById("loadingScreen").classList.remove("hidden");
+        startLoading();
+      } else {
+        alert("Try again! Hint: month and date only");
+      }
+    }
+
+    function startLoading() {
+      let progress = 0;
+      const progressFill = document.getElementById("progressFill");
+      const interval = setInterval(() => {
+        progress++;
+        progressFill.style.width = progress + "%";
+        progressFill.textContent = progress + "%";
+        if (progress >= 100) {
+          clearInterval(interval);
+          document.getElementById("loadingScreen").classList.add("hidden");
+          document.getElementById("photoReveal").classList.remove("hidden");
+          setTimeout(() => {
+            document.getElementById("envelopeContainer").classList.remove("hidden");
+          }, 2200);
+        }
+      }, 50);
+    }
+
+    function openEnvelope() {
+      document.getElementById("envelopeContainer").classList.add("hidden");
+      document.getElementById("paperContainer").classList.remove("hidden");
+      document.getElementById("bgMusic").play();
+      typeWriter();
+    }
+
+    const message = `Di kita minamadali… pero sana, one day, maisip mong worth it din akong piliin.
+
+Alam mo, wala naman talaga akong balak guluhin ‘yung peaceful mong routine...
+...Kasi kahit chill lang ako… seryoso rin ako sa’yo. In my own soft and steady way.`;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < message.length) {
+        document.getElementById("letter").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+      }
+    }
+
+    function createHearts() {
+      const heartsContainer = document.getElementById("floatingHearts");
+      for (let i = 0; i < 30; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "💜";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 5 + "s";
+        heart.style.fontSize = Math.random() * 20 + 20 + "px";
+        heartsContainer.appendChild(heart);
+      }
+    }
+
+    createHearts();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
