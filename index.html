@@ -63,24 +63,34 @@
       50% { transform: translateY(-10px); }
     }
     .paper {
-      margin-top: 20px;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 600px;
-      height: 400px;
-      overflow-y: auto;
-      box-shadow: 0 0 15px rgba(75, 0, 125, 0.3);
-      text-align: left;
-      font-size: 16px;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
+  margin-top: 10px; /* Mas maliit para mas tumaas */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(75, 0, 125, 0.3);
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 30px; /* Optional: extra spacing sa baba */
+}
+
+@media (max-width: 600px) {
+  .paper {
+    font-size: 14px;
+    padding: 15px;
+    height: 350px; /* Slightly shorter para di ma-cut off sa small screens */
+    margin-top: 5px; /* Mas mataas sa mobile */
+  }
+}
     .floating-hearts {
       position: fixed;
       top: 0;
