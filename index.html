@@ -62,7 +62,7 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-     .paper {
+    .paper {
   margin-top: 20px;
   background: white;
   padding: 20px;
@@ -158,7 +158,6 @@
       }
     }
 
-    /* Responsive fix */
     @media (max-width: 600px) {
       .question-box {
         padding: 20px;
@@ -268,44 +267,59 @@
       document.getElementById("envelopeContainer").classList.add("hidden");
       document.getElementById("paperContainer").classList.remove("hidden");
       document.getElementById("bgMusic").play();
+      document.getElementById("letter").innerHTML = ""; // clear
+      i = 0; // reset index
       typeWriter();
     }
 
-    const message = `"Di kita minamadali… pero sana, ‘pag dumating ‘yung araw na ready ka na, ako pa rin ‘yung makikita mong nandyan—at hindi lang basta andyan, kundi pinipili ka pa rin."
+    const message = `Hindi kita minamadali,
+but I won’t lie—
+I’m hoping one day,
+you’ll notice me, too.
 
-Hindi ako ‘yung tipong grand gestures, pero hindi rin ako passive.
-Hindi lang ‘to simpleng crush na dumaan sa feed mo.
-Ginagawa ko talaga ‘yung effort—hindi para mapansin lang,
-kundi dahil gusto talaga kitang pasayahin kahit konti, kahit sandali.
+Kasi kahit pa simple lang ako kumilos,
+every little thing I do for you
+comes from a real place.
+Galing sa puso, hindi sa trip.
+Yung mga surprises na binigay ko?
+Yung mga ginawa kong parang “ay ang cool naman”—
+those weren’t random.
+I made them with you in mind.
+I was thinking of how to make you smile
+without making it too obvious.
 
-Nagpapadala ako ng surprise codes, hindi dahil gusto ko lang magpakilig—
-kundi kasi gusto kong iparamdam sa’yo na kahit sa mga linya ng code, may lambing.
-Yung mga inspirational posts na sinasend ko?
-Pinipili ko ‘yan, hindi random scroll lang.
-Kasi gusto kong malaman mo—na kahit sa mga araw na hindi mo ako kailangan,
-nandito pa rin ako. Tahimik. Totoo.
+I don’t need anything in return.
+I’m not doing this just to get a yes.
+I’m doing this to show you
+na kahit tahimik ako,
+I care.
+And I see you in a way that’s rare.
 
-Hindi ako loud, pero consistent.
-Hindi ako perfect, pero present.
-At minsan, iniisip ko rin:
-What if dumating ‘yung araw na maramdaman mo lahat ng ‘yon?
-Na lahat ng akala mong simpleng effort lang pala… love language ko na pala talaga?
+I won’t rush you.
+I won’t push.
+But I also won’t lie about what I feel.
+You’re someone I want to know deeper.
+You’re someone I’d choose again and again,
+kahit ‘di pa sure kung may “tayo” sa dulo.
 
-Gusto kong paniwalaan na darating din ‘yung moment na ‘yon.
-Na kahit hindi ako flashy,
-maaalala mong may isang taong palaging nariyan sa background—
-coding softly, caring silently, loving you in the little ways na kaya ko.
+So while I’m here,
+I’ll keep showing up—
+not with grand moves,
+but with real ones.
 
-Pero habang wala pa ‘yung araw na ‘yon,
-hayaan mong manatili akong safe space mo.
-‘Yung kahit hindi mo pa ako kayang mahalin,
-ramdam mo pa rin na may isang taong hindi nagmamadali—
-pero hindi rin umaalis.
+And maybe, just maybe,
+someday, you’ll see me
+the way I already see you.
 
-Kasi kahit chill lang ako…
-seryoso ako sa’yo.
-At bawat effort na ginagawa ko, hindi dahil gusto kong suklian mo…
-kundi dahil gusto kitang alagaan, kahit mula sa distansya.`;
+And just so you know—
+you’re safe here.
+Hindi kita hihilahin palapit,
+pero kung lalapit ka,
+sigurado kang may taong handang salubungin ka
+nang buo, nang walang kondisyon.
+
+(April 25, 2025)
+And I still like you.`;
 
     let i = 0;
     function typeWriter() {
@@ -333,6 +347,7 @@ kundi dahil gusto kitang alagaan, kahit mula sa distansya.`;
   </script>
 </body>
 </html>
+
  
 
 
